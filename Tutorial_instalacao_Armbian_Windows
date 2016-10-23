@@ -1,0 +1,16 @@
+Para o tutorial aqui descrito foi utilizado um computador com sistema operacional Windows e um cartão com mais de 4Gb
+de espaço. 
+
+Faça o download da imagem do sistema operacional, neste caso o Armbian. Não esqueça de escolher o Orange PI correto.
+
+http://www.armbian.com/download/
+
+Faça o download e a instalação do Win32 Disk Imager.
+
+https://goo.gl/SgwAjN
+
+Abra o programa, clique no ícone da pasta azul e escolha a imagem a ser gravada no cartão.
+
+Em Device selecione a letra do cartão e logo após clique no botão Write.
+
+Pronto a imagem esta gravada, e só colocar o cartão no Orange e iniciá-lo.
