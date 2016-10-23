@@ -1,32 +1,32 @@
 
-O tutorial aqui descrito foi adaptado do site zabbixbrasil.org
+O tutorial aqui descrito foi adaptado do site www.zabbixbrasil.org
 
 Computador: Orange Pi PC
 Sistema operacional: Armbian
 
-Entre com o usuario root
+Entre com o usuário root
 sudo su
 
-Verifica e atualiza os repositorios disponiveis
+Verifica e atualiza os repositórios disponíveis
 apt update
 
-Instalar os pacotes necessarios
+Instalar os pacotes necessários
 apt -y install build-essential snmp vim libssh2-1-dev libssh2-1 libopenipmidev libsnmp-dev wget libcurl4-gnutls-dev fping libxml2 libxml2-dev curl libcurl3-gnutls libcurl3-gnutls-dev libiksemel-dev libiksemel-utils libiksemel3
 apt -y install python-software-properties
 
-Adiciona o repositorio java
+Adiciona o repositório java
 add-apt-repository -y ppa:webupd8team/java
 
-Verifica e atualiza os repositorios disponiveis
+Verifica e atualiza os repositórios disponíveis
 apt update
 
 Instala o java8
 apt -y install oracle-java8-installer oracle-java8-set-default
 
-Instalacao do Apache - PHP - MySQL
+Instalação do Apache - PHP - MySQL
 apt install -y apache2 php7.0 php7.0-mysql libapache2-mod-php7.0 php7.0-gd php7.0-bcmath php7.0-mbstring php7.0-xml php-net-socket libpq5 libpq-dev mysql-server mysql-client libmysqld-dev
 
-Cria o banco de dados zabbix e o usuário zabbix que acessará o banco. 
+Cria o banco de dados Zabbix e o usuário Zabbix que acessará o banco. 
 mysql -u root -p
 
 mysql> create database zabbix character set utf8;
@@ -35,7 +35,7 @@ mysql> GRANT ALL PRIVILEGES ON *.* TO zabbix@localhost IDENTIFIED BY 'SUA_SENHA_
 
 mysql> quit
 
-Configurando o php, delete o símbolo “;”, que porventura estiver no início da linha de cada parâmetro abaixo, e atribua os seguintes valores:
+Configurando o PHP, delete o símbolo “;”, que porventura estiver no início da linha de cada parâmetro abaixo, e atribua os seguintes valores:
 
 nano /etc/php/7.0/apache2/php.ini
 
@@ -49,19 +49,19 @@ always_populate_raw_post_data = -1
 Reinicie o Apache
 service apache2 restart
 
-Caso nao tenha um usuario zabbix no sistema vamos criar um
+Caso não tenha um usuário Zabbix no sistema vamos criar um
 adduser zabbix
 
-Com as todas as dependencias instaladas vamos baixar os pacotes de instalacao do zabbix(que no momento dessa escrita é o 3.2.0)
+Com as todas as dependências instaladas vamos baixar os pacotes de instalação do Zabbix(que no momento dessa escrita é o 3.2.0)
 
-seta a versao para a atual, devera ser mudado para outras versoes
+Seta a versão para a atual, devera ser mudado para outras versões
 VERSAO=3.2.0
 export VERSAO
 
-troca para o diretorio temporario
+Troca para o diretório temporário
 cd /tmp
 
-faz o download do zabbix
+faz o download do Zabbix
 wget http://downloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/$VERSAO/zabbix-$VERSAO.tar.gz
 
 Extrai os arquivos
@@ -88,7 +88,7 @@ make install
 Volta a pasta raiz
 cd~
 
-Configurando o zabbix_agentd, substitua todas as informacoes contidas no arquivo por essas:
+Configurando o zabbix_agentd, substitua todas as informações contidas no arquivo por essas:
 nano /usr/local/etc/zabbix_agentd.conf
 
 PidFile=/tmp/zabbix_agentd.pid
@@ -128,9 +128,9 @@ reinicie o apache
 service apache2 restart
 
 
-Configuracao de inicializacao do zabbix
+Configuração de inicialização do Zabbix
 
-Crie arquivo /etc/init.d/zabbix_server e adicione o conteúdo abaixo( nao remova os #)
+Crie arquivo /etc/init.d/zabbix_server e adicione o conteúdo abaixo( não remova os #)
 
 #!/bin/sh
 #
@@ -207,10 +207,10 @@ case "$1" in
 esac
 exit 0
 
-Torne os aquivos executaveis 
+Torne os aquivos executáveis 
 chmod +x /etc/init.d/zabbix_server /etc/init.d/zabbix_agentd
 
-Execulte os scripts
+Execute os scripts
 /etc/init.d/zabbix_server start
 /etc/init.d/zabbix_agentd start
 
@@ -218,16 +218,16 @@ Habilite os scripts para serem executados quando o computador for ligado.
 update-rc.d -f zabbix_server defaults
 update-rc.d -f zabbix_agentd defaults
 
-A instalacao esta completa, agora acesse de um navegar o frontend, o endereco é http://ip-do-server/zabbix
+A instalação esta completa, agora acesse de um navegar o frontend, o endereço é http://ip-do-server/zabbix
 
 
-O processo é bem simples, como de instalacao de programas no windows
+O processo é bem simples, como de instalação de programas no Windows
 
 Na primeira tela clique em Next Step
 
-Cheque as dependencias do zabbix, se tudo estiver com o ok clique em Next step.
+Cheque as dependências do Zabbix, se tudo estiver com o ok clique em Next step.
 
-Preencha as informacoes do Banco de Dados e clique em Next Step.
+Preencha as informações do Banco de Dados e clique em Next Step.
 
 Informe o IP do servidor Zabbix e a porta em que ele será executado (a padrão é 10051). No campo Name você pode usar um nome qualquer, essa informação é útil quando você precisa administrar vários servidores Zabbix. Depois clique em Next step.
 
@@ -236,4 +236,4 @@ Revise as configurações e se estiver ok, clique em Next step
 Clique em Finish. Se nesta tela for exibido um erro de permissão durante a atualização do arquivo de configuração, cheque a permissão do diretório /var/www/html/zabbix e configure da forma mostrada neste tutorial.
 
 
-Pronto! O Zabbix está instalado. Logue no Zabbix com o usuário Admin e senha zabbix. (Admin com letra A maiuscula)
+Pronto! O Zabbix está instalado. Logue no Zabbix com o usuário Admin e senha Zabbix. (Admin com letra A maiúscula)
