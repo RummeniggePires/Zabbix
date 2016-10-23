@@ -1,0 +1,32 @@
+Para o tutorial aqui descrito foi utilizado um computador com sistema operacional baseado em Linux e um cartão com mais de 4Gb
+de espaço. 
+
+Execute todos os comandos como usuário root.
+
+Com o cartão já inserido no computador abra o terminal e digite:
+
+#fdisk -l
+
+Será apresentado uma lista com os discos disponíveis. Identifique qual dos discos é o cartão.
+
+Apenas em modo de exemplificação usarei o caminho /dev/sdx para o cartão, você devera usar o que foi identificado.
+
+Desmonte a unidade caso esteja montada:
+#umount /dev/sdx
+
+Agora vamos deletar as partições do cartão e criar uma nova:
+#fdisk /dev/sdx
+
+Use o comando "o" (sem as aspas) para apagar as partições, o "n" (sem as aspas) para criar uma nova partição,
+(siga com as configurações padrões que serão oferecidas), e por ultimo o "w" (sem as aspas) para gravar a nova partição.
+
+Faca o download da imagem do sistema operacional, neste caso o Armbian. Não esqueça de escolher o Orange PI correto.
+
+http://www.armbian.com/download/
+
+Por ultimo vamos gravar a imagem no cartão.
+
+#dd bs=4M if=/CaminhoDaImagem/imagem of=/dev/sdx
+
+
+Pronto a imagem esta gravada, e só colocar o cartão no Orange e iniciá-lo.
