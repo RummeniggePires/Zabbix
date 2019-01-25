@@ -1,0 +1,41 @@
+===== Debian 9 =====
+# wget http://repo.zabbix.com/zabbix/4.0/debian/pool/main/z/zabbix-release/zabbix-release_4.0-2+stretch_all.deb
+# apt update
+# apt install zabbix-agent
+
+===== Debian 8 =====
+# wget http://repo.zabbix.com/zabbix/4.0/debian/pool/main/z/zabbix-release/zabbix-release_4.0-2+jessie_all.deb
+# dpkg -i zabbix-release_3.4-1+jessie_all.deb
+# apt update
+# apt install zabbix-agent
+
+===== Debian 7 =====
+# wget http://repo.zabbix.com/zabbix/3.5/debian/pool/main/z/zabbix-release/zabbix-release_3.5-1+wheezy_all.deb
+# dpkg -i zabbix-release_3.4-1+wheezy_all.deb
+# apt update
+# apt install zabbix-agent
+ 
+
+===== Configuração do agente =======
+ 
+# vim /etc/zabbix/zabbix_agentd.conf
+Server=127.0.0.1 >> Altere para o ip do seu servidor.
+Hostname=Zabbix Server >> Altere para o hostname do servidor.
+ 
+>> Ficando assim:
+Server=192.168.68.114
+Hostname=Server-vpn
+
+===== Inicializa o agente e coloca para startar junto ao servidor =======
+
+# systemctl start zabbix-agent
+# systemctl enable zabbix-agent
+ 
+>> Ou 
+ 
+# /etc/init.d/zabbix-agent start
+# ln -s /etc/init.d/zabbix-agent /etc/rc3.d/S01zabbix-agent
+
+===== Libera no firewall =====
+
+# iptables -A INPUT -p tcp -s 192.168.68.108 --dport 10050 -m state --state NEW,ESTABLISHED -j ACCEPT
