@@ -1,3 +1,7 @@
+===== Libera no firewall =====
+
+# iptables -A INPUT -p tcp -s 192.168.68.108 --dport 10050 -m state --state NEW,ESTABLISHED -j ACCEPT
+
 ===== Debian 9 =====
 # wget http://repo.zabbix.com/zabbix/4.0/debian/pool/main/z/zabbix-release/zabbix-release_4.0-2+stretch_all.deb
 # apt update
@@ -14,7 +18,31 @@
 # dpkg -i zabbix-release_3.4-1+wheezy_all.deb
 # apt update
 # apt install zabbix-agent
- 
+
+===== Ubuntu 18.04 =====
+wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-2+bionic_all.deb
+sudo dpkg -i zabbix-release_3.0-2+bionic_all.deb
+sudo apt update
+sudo apt-get install zabbix-agent
+
+===== Ubuntu 16.04 =====
+wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+xenial_all.deb
+sudo dpkg -i zabbix-release_3.0-1+xenial_all.deb
+sudo apt update
+sudo apt-get install zabbix-agent
+
+===== Ubuntu 14.04 =====
+wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb
+sudo dpkg -i zabbix-release_3.0-1+trusty_all.deb
+sudo apt-get update
+sudo apt-get install zabbix-agent
+
+===== Ubuntu 12.04 =====
+wget http://repo.zabbix.com/zabbix/2.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.2-1+precise_all.deb
+sudo dpkg -i zabbix-release_2.2-1+precise_all.deb
+sudo apt-get update
+sudo apt-get install zabbix-agent
+
 
 ===== Configuração do agente =======
  
@@ -26,8 +54,10 @@ Hostname=Zabbix Server >> Altere para o hostname do servidor.
 Server=192.168.68.114
 Hostname=Server-vpn
 
+ 
 ===== Inicializa o agente e coloca para startar junto ao servidor =======
 
+===== Debian =====
 # systemctl start zabbix-agent
 # systemctl enable zabbix-agent
  
@@ -36,6 +66,6 @@ Hostname=Server-vpn
 # /etc/init.d/zabbix-agent start
 # ln -s /etc/init.d/zabbix-agent /etc/rc3.d/S01zabbix-agent
 
-===== Libera no firewall =====
-
-# iptables -A INPUT -p tcp -s 192.168.68.108 --dport 10050 -m state --state NEW,ESTABLISHED -j ACCEPT
+===== Ubuntu =====
+sudo update-rc.d zabbix-agent defaults
+sudo update-rc.d zabbix-agent enable
